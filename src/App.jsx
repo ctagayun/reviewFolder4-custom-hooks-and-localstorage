@@ -13,11 +13,12 @@ import RenderListUsingRestDestructuring from "./renderListUsingRestDestructuring
 import RenderListUsingSpreadDotDotOperatorVariation1 from "./renderListUsingSpreadDotDotOperatorVariation1.jsx";
 import RenderListUsingSpreadDotDotOperatorVariation2 from "./renderListUsingSpreadDotDotOperatorVariation2.jsx";
 
-  //Create a custom hook called "useStorageState". We will use two hooks 
+  //This purpose of this custom hook is save and fetch from the locastorage 
+  // whatever is inputted in the search box component. We will use two hooks 
   //to create it:
   //    1. useState
   //    2. useEffect 
-
+  //The actual return value of our custom hook will be displayed in the search box.
   const useStorageState = (searchKeyParam, deafaultStateParam) => {
 
     const [theState, stateSetter] = React.useState(
@@ -33,6 +34,7 @@ import RenderListUsingSpreadDotDotOperatorVariation2 from "./renderListUsingSpre
        [theState, stateSetter] );
 
     //Custom hooks return values are returned as an array
+    console.log (`The state = ${theState}`);
     return [theState, stateSetter]; 
 
  } //EOF create custom hook
@@ -70,9 +72,9 @@ function App() {
   let searchKey= 'search';
   let defaultState = 'React'
 
-  //now call our custom hook. The actual return value of our custom hook is:
-  // return [theState, stateSetter]. But we can rename it. In this case
-  //searchTerm, setSearchTerm respectively
+  //The purpose of this custom hook is to save and fetch from the localtorage
+  //that values that was inputted in the search box.
+  //The actual return value of our custom hook will be displayed in the search box.
   const [searchTerm, setSearchTerm] = useStorageState(searchKey, defaultState)
 
   const handleSearch = (event) => {
@@ -91,8 +93,8 @@ function App() {
           {welcome.greeting} {welcome.title}
       </h1>
        
-       {/* // B - Pass in a callback handler as prop to search component*/}
-       <Search search={searchTerm} onSearch={handleSearch} />; 
+       {/* searchTerm came from localStorage custom hook*/}
+       <Search search={searchTerm} onSearch={handleSearch} /> 
 
        <hr/>
 
